@@ -23,9 +23,7 @@ module Classifier
   # This class implements a Latent Semantic Indexer, which can search, classify and cluster
   # data based on underlying semantic relations. For more information on the algorithms used,
   # please consult Wikipedia[http://en.wikipedia.org/wiki/Latent_Semantic_Indexing].
-  class LSI
-    
-    include Classifier::Helpers
+  class LSI < Classifier::Base
     
     attr_reader :word_list
     attr_accessor :auto_rebuild

@@ -4,9 +4,8 @@
 
 module Classifier
 
-class Bayes
+class Bayes < Classifier::Base
   
-  include Classifier::Helpers
   # The class can be created with one or more categories, each of which will be
   # initialized and given a training method. E.g., 
   #      b = Classifier::Bayes.new 'Interesting', 'Uninteresting', 'Spam'
@@ -65,7 +64,7 @@ class Bayes
 		score = Hash.new
 		@categories.each do |category, category_words|
 			score[category.to_s] = 0
-			total = category_words.values.inject(0) {|sum, element| sum+element}
+			total = category_words.values.sum
 			word_hash(text).each do |word, count|
 				s = category_words.has_key?(word) ? category_words[word] : 0.1
 				score[category.to_s] += Math.log(s/total.to_f)

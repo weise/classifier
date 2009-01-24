@@ -25,6 +25,8 @@
 # License::   LGPL
 
 require 'rubygems'
+require 'activesupport'
 require 'classifier/extensions/string'
+require 'classifier/base'
 require 'classifier/bayes'
 require 'classifier/lsi'
