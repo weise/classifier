@@ -26,7 +26,7 @@
 
 require 'rubygems'
 require 'activesupport'
-require 'classifier/extensions/string'
+require 'lingua/stemmer'
 require 'classifier/base'
 require 'classifier/bayes'
 require 'classifier/lsi'

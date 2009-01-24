@@ -8,11 +8,13 @@ class Bayes < Classifier::Base
   
   # The class can be created with one or more categories, each of which will be
   # initialized and given a training method. E.g., 
-  #      b = Classifier::Bayes.new 'Interesting', 'Uninteresting', 'Spam'
-	def initialize(*categories)
+  #      b = Classifier::Bayes.new :categories => ['Interesting', 'Uninteresting', 'Spam']
+	def initialize(options = {})
 		@categories = Hash.new
-		categories.each { |category| @categories[prepare_category_name(category)] = Hash.new }
+		options.reverse_merge!(:categories => [])
+		options[:categories].each { |category| @categories[prepare_category_name(category)] = Hash.new }
 		@total_words = 0
+		super
 	end
 
 	#

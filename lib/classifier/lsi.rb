@@ -36,6 +36,7 @@ module Classifier
       @auto_rebuild = true unless options[:auto_rebuild] == false
       @word_list, @items = WordList.new, {}
       @version, @built_at_version = 0, -1
+      super
     end
     
     # Returns true if the index needs to be rebuilt.  The index needs

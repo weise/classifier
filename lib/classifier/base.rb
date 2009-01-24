@@ -1,5 +1,12 @@
 module Classifier
   class Base
+    
+    def initialize(options = {})
+      options.reverse_merge!(:language => 'en')
+      options.reverse_merge!(:encoding => 'UTF_8')
+
+      @options = options
+    end
   
     def prepare_category_name val
       val.to_s.gsub("_"," ").capitalize.intern 
@@ -27,10 +34,11 @@ module Classifier
   	private 
   	
   	def word_hash_for_words(words)
+  	  stemmer = Lingua::Stemmer.new(@options)
   		d = Hash.new
   		words.each do |word|
-  			word.mb_chars.downcase! if word =~ /[\w]+/ #TODO: use mb_chars
-  			key = word.stem.intern
+  			word.mb_chars.downcase! if word =~ /[\w]+/
+  			key = stemmer.stem(word).intern
   			if word =~ /[^\w]/ || ! CORPUS_SKIP_WORDS.include?(word) && word.length > 2
   				d[key] ||= 0
   				d[key] += 1

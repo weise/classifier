@@ -3,7 +3,7 @@ class LSITest < Test::Unit::TestCase
 	def setup
 	  # we repeat principle words to help weight them. 
 	  # This test is rather delicate, since this system is mostly noise.
-     @str1 = "This text deals with dogs. Dogs."
+    @str1 = "This text deals with dogs. Dogs."
 	  @str2 = "This text involves dogs too. Dogs! "
 	  @str3 = "This text revolves around cats. Cats."
 	  @str4 = "This text also involves cats. Cats!"
@@ -38,12 +38,12 @@ class LSITest < Test::Unit::TestCase
 	  
 	  assert_equal "Dog", lsi.classify( @str1 )
 	  assert_equal "Cat", lsi.classify( @str3 )
-     assert_equal "Bird", lsi.classify( @str5 )  
+    assert_equal "Bird", lsi.classify( @str5 )  
 	end
 	
 	def test_external_classifying
 	  lsi = Classifier::LSI.new
-	  bayes = Classifier::Bayes.new 'Dog', 'Cat', 'Bird'
+	  bayes = Classifier::Bayes.new :categories => ['Dog', 'Cat', 'Bird']
 	  lsi.add_item @str1, "Dog" ; bayes.train_dog @str1
 	  lsi.add_item @str2, "Dog" ; bayes.train_dog @str2
 	  lsi.add_item @str3, "Cat" ; bayes.train_cat @str3
