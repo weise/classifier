@@ -2,16 +2,6 @@
 
 Classifier is a general module to allow Bayesian and other types of classifications.
 
-== Download
-
-* http://rubyforge.org/projects/classifier
-* gem install classifier
-* svn co http://rufy.com/svn/classifier/trunk
-
-== Dependencies
-If you install Classifier from source, you'll need to install Martin Porter's stemmer algorithm with RubyGems as follows:
-  gem install stemmer
-
 If you would like to speed up LSI classification by at least 10x, please install the following libraries:
 GNU GSL:: http://www.gnu.org/software/gsl
 rb-gsl:: http://rb-gsl.rubyforge.org
@@ -90,6 +80,7 @@ You can also specify language and encoding for internal stemmer
 * Lucas Carlson  (mailto:lucas@rufy.com)
 * David Fayram II (mailto:dfayram@gmail.com)
 * Cameron McBride (mailto:cameron.mcbride@gmail.com)
+* Yury Korolev (mailto:yury.korolev@gmail.com)
 
 This library is released under the terms of the GNU LGPL. See LICENSE for more details.
 
