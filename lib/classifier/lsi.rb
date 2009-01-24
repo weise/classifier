@@ -25,6 +25,8 @@ module Classifier
   # please consult Wikipedia[http://en.wikipedia.org/wiki/Latent_Semantic_Indexing].
   class LSI
     
+    include Classifier::Helpers
+    
     attr_reader :word_list
     attr_accessor :auto_rebuild
     
@@ -59,7 +61,7 @@ module Classifier
     #   lsi.add_item ar, *ar.categories { |x| ar.content }
     #
     def add_item( item, *categories, &block )
-      clean_word_hash = block ? block.call(item).clean_word_hash : item.to_s.clean_word_hash
+      clean_word_hash = block ? clean_word_hash(block.call(item)) : clean_word_hash(item.to_s)
       @items[item] = ContentNode.new(clean_word_hash, *categories)
       @version += 1
       build_index if @auto_rebuild
@@ -294,7 +296,7 @@ module Classifier
       if @items[item]
         return @items[item]
       else
-        clean_word_hash = block ? block.call(item).clean_word_hash : item.to_s.clean_word_hash
+        clean_word_hash = block ? clean_word_hash(block.call(item)) : clean_word_hash(item.to_s)
 
         cn = ContentNode.new(clean_word_hash, &block) # make the node and extract the data
 
