@@ -23,7 +23,7 @@ A Bayesian classifier by Lucas Carlson. Bayesian Classifiers are accurate, fast,
 
 === Usage
     require 'classifier'
-    b = Classifier::Bayes.new 'Interesting', 'Uninteresting'
+    b = Classifier::Bayes.new :categories => ['Interesting', 'Uninteresting']
     b.train_interesting "here are some good words. I hope you love them"
     b.train_uninteresting "here are some bad words, I hate you"
     b.classify "I hate bad words and you" # returns 'Uninteresting'
@@ -38,6 +38,9 @@ A Bayesian classifier by Lucas Carlson. Bayesian Classifiers are accurate, fast,
     m.system.classify "I love you" # returns 'Interesting'
 
 Using Madeleine, your application can persist the learned data over time.
+
+You can also specify language and encoding for internal stemmer
+	  b = Classifier::Bayes.new :categories => ['Interesting', 'Uninteresting'], :language => 'ro', :encoding => 'ISO_8859_2'
 
 === Bayesian Classification
 
@@ -73,6 +76,10 @@ theoretically simulates human learning.
   
 Please see the Classifier::LSI documentation for more information. It is possible to index, search and classify
 with more than just simple strings. 
+
+You can also specify language and encoding for internal stemmer
+	  lsi = Classifier::LSI.new :language => 'ro', :encoding => 'ISO_8859_2'
+
 
 === Latent Semantic Indexing
 * http://www.c2.com/cgi/wiki?LatentSemanticIndexing

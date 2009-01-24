@@ -9,6 +9,9 @@ class Bayes < Classifier::Base
   # The class can be created with one or more categories, each of which will be
   # initialized and given a training method. E.g., 
   #      b = Classifier::Bayes.new :categories => ['Interesting', 'Uninteresting', 'Spam']
+  #  you can specify language and encoding parameters for stemmer 
+  # (default values - :language => 'en', :encoding => 'UTF_8')
+  #      b = Classifier::Bayes.new :categories => ['Interesting', 'Uninteresting', 'Spam'], :language => 'ru'
 	def initialize(options = {})
 		@categories = Hash.new
 		options.reverse_merge!(:categories => [])
