@@ -30,4 +30,11 @@ class BayesianTest < Test::Unit::TestCase
 		@classifier.train_uninteresting "here are some bad words, I hate you"
 		assert_equal 'Uninteresting', @classifier.classify("I hate bad words and you")
 	end
+	
+	def test_ru_classification
+	  c = Classifier::Bayes.new :categories => ['Interesting', 'Uninteresting'], :language => "ru"
+	  c.train_interesting "вот несколько хороших слов. Я надеюсь вам они понравились"
+	  c.train_uninteresting "вот несколько плохих слов. Я тебя ненавижу"
+	  assert_equal 'Uninteresting', c.classify("Я ненавижу плохие слова и тебя")
+  end
 end
