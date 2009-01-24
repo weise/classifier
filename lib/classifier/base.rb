@@ -131,6 +131,7 @@ module Classifier
         "youll",
         ]
     
+    # http://snowball.tartarus.org/algorithms/russian/stop.txt
     RU_CORPUS_SKIP_WORDS = [
       "и",              # and
       "в",              # in/into
