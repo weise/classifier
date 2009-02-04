@@ -1,4 +1,5 @@
 # coding:utf-8
+$KCODE = 'utf8'
 
 require File.dirname(__FILE__) + '/../test_helper'
 class BayesianTest < Test::Unit::TestCase
@@ -38,5 +39,14 @@ class BayesianTest < Test::Unit::TestCase
 	  c.train_interesting "вот несколько хороших слов. Я надеюсь вам они понравились"
 	  c.train_uninteresting "вот несколько плохих слов. Я тебя ненавижу"
 	  assert_equal 'Uninteresting', c.classify("Я ненавижу плохие слова и тебя")
+  end
+  
+  def test_case_insensitive
+	  c = Classifier::Bayes.new :categories => [:good, :bad], :language => "ru"
+	  c.train_good "Хорошо"
+	  c.train_bad "Плохо"
+	  
+	  assert_equal c.classifications("ХОРОШО"), c.classifications("хорошо")
+	  assert_equal c.classifications("плОХО"), c.classifications("плохо")
   end
 end

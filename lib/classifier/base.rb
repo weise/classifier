@@ -40,7 +40,7 @@ module Classifier
   		d = Hash.new
   		skip_words = SKIP_WORDS[@options[:language]] || []
   		words.each do |word|
-  			word.mb_chars.downcase! if word =~ /[\w]+/
+  			word = word.mb_chars.downcase.to_s if word =~ /[\w]+/
   			key = stemmer.stem(word).intern
   			if word =~ /[^\w]/ || ! skip_words.include?(word) && word.length > 2
   				d[key] ||= 0
