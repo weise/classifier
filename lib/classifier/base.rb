@@ -1,4 +1,5 @@
 # coding:utf-8
+$KCODE = 'utf8'
 
 module Classifier
   class Base
