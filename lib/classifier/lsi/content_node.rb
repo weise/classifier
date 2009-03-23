@@ -54,7 +54,8 @@ module Classifier
           if ( term > 0 )
             weighted_total += (( term / total_words ) * Math.log( term / total_words ))
           end
-        end 
+        end
+        weighted_total = -1.0 if weighted_total.zero? # if no word in list is known
         vec = vec.collect { |val| Math.log( val + 1 ) / -weighted_total }
       end
       
