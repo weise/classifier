@@ -5,7 +5,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
     s.name        = "classifier"
-    s.description = "A general classifier module to allow Bayesian and other types of classifications."
+    s.summary     = s.description = "A general classifier module to allow Bayesian and other types of classifications."
     s.homepage    = "http://github.com/yury/classifier"
     s.author      = "Yury Korolev"
     s.email       = "yury.korolev@gmail.com"
