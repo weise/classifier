@@ -1,15 +1,19 @@
 require 'rubygems'
 require 'rake'
-require 'echoe'
 
-Echoe.new('classifier', '1.3.3') do |p|
-  p.description    = "A general classifier module to allow Bayesian and other types of classifications."
-  p.url            = "http://github.com/yury/classifier"
-  p.author         = "Yury Korolev"
-  p.email          = "yury.korolev@gmail.com"
-  p.ignore_pattern = ["tmp/*", "script/*"]
-  p.development_dependencies = []
-  p.runtime_dependencies = ["activesupport >= 2.2.2", "ruby-stemmer >= 0.5.1"]
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |s|
+    s.description              = "A general classifier module to allow Bayesian and other types of classifications."
+    s.homepage                 = "http://github.com/yury/classifier"
+    s.author                   = "Yury Korolev"
+    s.email                    = "yury.korolev@gmail.com"
+
+    s.add_dependency "activesupport >= 2.2.2"
+    s.add_dependency "ruby-stemmer >= 0.5.1"
+  end
+rescue LoadError
+  puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
 end
 
 Dir["#{File.dirname(__FILE__)}/tasks/*.rake"].sort.each { |ext| load ext }
