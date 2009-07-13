@@ -1,8 +1,6 @@
 # coding:utf-8
 $KCODE = 'utf8'
 
-puts "Custom Classifier"
-
 module Classifier
   class Base
     
