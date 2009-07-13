@@ -1,6 +1,8 @@
 # coding:utf-8
 $KCODE = 'utf8'
 
+puts "Custom Classifier"
+
 module Classifier
   class Base
     
@@ -36,8 +38,11 @@ module Classifier
   	
   	private 
   	
+		def stemmer
+			@stemmer ||= Lingua::Stemmer.new(@options)
+		end
+
   	def word_hash_for_words(words)
-  	  stemmer = Lingua::Stemmer.new(@options)
   		d = Hash.new
   		skip_words = SKIP_WORDS[@options[:language]] || []
   		words.each do |word|
