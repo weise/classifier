@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{classifier}
-  s.version = "1.3.4"
+  s.version = "1.3.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Yury Korolev"]
-  s.date = %q{2009-07-12}
+  s.date = %q{2009-07-13}
   s.description = %q{Bayesian classifier and others.}
   s.email = %q{yury.korolev@gmail.com}
   s.extra_rdoc_files = [
