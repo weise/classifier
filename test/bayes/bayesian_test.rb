@@ -30,4 +30,10 @@ class BayesianTest < Test::Unit::TestCase
 		@classifier.train_uninteresting "here are some bad words, I hate you"
 		assert_equal 'Uninteresting', @classifier.classify("I hate bad words and you")
 	end
+
+  def test_regression_untrain_nil_fixnum
+    # if a word of the untraining text is not present on the category, a
+    # "TypeError: nil can't be coerced into Fixnum" is raised
+    @classifier.untrain_interesting "nothing"
+  end
 end
