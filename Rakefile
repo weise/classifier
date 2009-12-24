@@ -7,7 +7,7 @@ begin
     s.name        = "luisparravicini-classifier"
     s.summary     = "A general classifier module to allow Bayesian and other types of classifications."
     s.description = "Bayesian classifier and others."
-    s.homepage    = "http://github.com/yury/classifier"
+    s.homepage    = "http://github.com/luisparravicini/classifier"
     s.author      = "Yury Korolev"
     s.email       = "yury.korolev@gmail.com"
 

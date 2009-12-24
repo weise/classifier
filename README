@@ -8,6 +8,10 @@ rb-gsl:: http://rb-gsl.rubyforge.org
 
 Notice that LSI will work without these libraries, but as soon as they are installed, Classifier will make use of them. No configuration changes are needed, we like to keep things ridiculously easy for you.
 
+== Changes in this fork
+I made this fork to fix a TypeError on untrain (classifier-1.3.1), then merge KirinDave branch to fix an incompatibility problem with ActiveSupport (with Array#sum), then francois branch for jeweler and all the changes yuri made on his branch (specially the use of ruby-stemmer, which I needed).
+After that I added support for loading the stopwords of certain language from a file (before the list was embedded on the source code).
+
 == Bayes
 A Bayesian classifier by Lucas Carlson. Bayesian Classifiers are accurate, fast, and have modest memory requirements.
 
