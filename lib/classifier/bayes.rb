@@ -2,6 +2,8 @@
 # Copyright:: Copyright (c) 2005 Lucas Carlson
 # License::   LGPL
 
+require 'classifier/stopwords'
+
 module Classifier
 
 class Bayes < Classifier::Base
