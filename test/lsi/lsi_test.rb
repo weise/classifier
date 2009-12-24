@@ -3,11 +3,14 @@ class LSITest < Test::Unit::TestCase
 	def setup
 	  # we repeat principle words to help weight them. 
 	  # This test is rather delicate, since this system is mostly noise.
-     @str1 = "This text deals with dogs. Dogs."
+    @str1 = "This text deals with dogs. Dogs."
 	  @str2 = "This text involves dogs too. Dogs! "
 	  @str3 = "This text revolves around cats. Cats."
 	  @str4 = "This text also involves cats. Cats!"
 	  @str5 = "This text involves birds. Birds."
+	  @str6 = "Is it about dogs or birds?"
+	  @str7 = "Is it about birds or cats?"
+	  @str8 = "I would prefer a bird over thousand cats or dogs because birds are smaller."
 	end
 	
 	def test_basic_indexing
@@ -29,6 +32,14 @@ class LSITest < Test::Unit::TestCase
 	 assert ! lsi.needs_rebuild?
 	end
 
+	def test_basic_categorizing_with_too_small_dataset
+	  lsi = Classifier::LSI.new
+	  lsi.add_item @str2, "Dog"
+	  
+	  assert_equal nil, lsi.classify( @str1 )
+	  assert_equal [], lsi.classify_multiple( @str3 )
+	end
+
 	def test_basic_categorizing
 	  lsi = Classifier::LSI.new
 	  lsi.add_item @str2, "Dog"
@@ -38,12 +49,45 @@ class LSITest < Test::Unit::TestCase
 	  
 	  assert_equal "Dog", lsi.classify( @str1 )
 	  assert_equal "Cat", lsi.classify( @str3 )
-     assert_equal "Bird", lsi.classify( @str5 )  
+    assert_equal "Bird", lsi.classify( @str5 )
+    assert_equal "Dog", lsi.classify( @str6 )
+    assert_equal "Bird", lsi.classify( @str7 )
+    assert_equal "Bird", lsi.classify( @str8 )
 	end
-	
+
+  def test_multiple_categorizing
+    lsi = Classifier::LSI.new
+    lsi.add_item @str1, "Dog"
+    lsi.add_item @str2, "Dog"
+    lsi.add_item @str3, "Cat"
+    lsi.add_item @str4, "Cat"
+    lsi.add_item @str5, "Bird"
+
+    assert_equal ["Dog", "Bird"], lsi.classify_multiple( @str6 )
+    assert_equal ["Cat", "Bird"], lsi.classify_multiple( @str7 )
+    assert_equal ["Bird"], lsi.classify_multiple( @str8 )
+  end
+  
+  def test_multiple_categorizing_reverse
+    lsi = Classifier::LSI.new
+    lsi.add_item @str1, "Dog"
+    lsi.add_item @str3, "Cat"
+    lsi.add_item @str4, "Cat"
+    lsi.add_item @str6, "Dog", "Bird", "Flying"
+    lsi.add_item @str7, "Cat", "Bird"
+    lsi.add_item @str8, "Bird", "Dog", "Cat"
+
+    assert_equal ["Dog"], lsi.classify_multiple( @str2 )
+    assert_equal ["Cat", "Bird"], lsi.classify_multiple( @str5 )
+
+    # test with a word unknown alone
+    assert_equal "Bird", lsi.classify( "Bird!" )
+    assert_equal ["Bird", "Dog", "Cat"], lsi.classify_multiple( "Bird!" )
+  end
+  
 	def test_external_classifying
 	  lsi = Classifier::LSI.new
-	  bayes = Classifier::Bayes.new 'Dog', 'Cat', 'Bird'
+	  bayes = Classifier::Bayes.new :categories => ['Dog', 'Cat', 'Bird']
 	  lsi.add_item @str1, "Dog" ; bayes.train_dog @str1
 	  lsi.add_item @str2, "Dog" ; bayes.train_dog @str2
 	  lsi.add_item @str3, "Cat" ; bayes.train_cat @str3

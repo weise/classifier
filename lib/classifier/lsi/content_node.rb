@@ -44,7 +44,7 @@ module Classifier
       end
      
       # Perform the scaling transform
-      total_words = vec.sum
+      total_words = vec.sum.to_f
       
       # Perform first-order association transform if this vector has more
       # than one word in it. 
@@ -54,7 +54,8 @@ module Classifier
           if ( term > 0 )
             weighted_total += (( term / total_words ) * Math.log( term / total_words ))
           end
-        end 
+        end
+        weighted_total = -1.0 if weighted_total.zero? # if no word in list is known
         vec = vec.collect { |val| Math.log( val + 1 ) / -weighted_total }
       end
       

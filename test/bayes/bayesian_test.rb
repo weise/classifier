@@ -1,7 +1,10 @@
+# coding:utf-8
+$KCODE = 'utf8'
+
 require File.dirname(__FILE__) + '/../test_helper'
 class BayesianTest < Test::Unit::TestCase
 	def setup
-		@classifier = Classifier::Bayes.new 'Interesting', 'Uninteresting'
+		@classifier = Classifier::Bayes.new :categories => ['Interesting', 'Uninteresting']
 	end
 	
 	def test_good_training
@@ -35,5 +38,21 @@ class BayesianTest < Test::Unit::TestCase
     # if a word of the untraining text is not present on the category, a
     # "TypeError: nil can't be coerced into Fixnum" is raised
     @classifier.untrain_interesting "nothing"
+  end
+	
+	def test_ru_classification
+	  c = Classifier::Bayes.new :categories => ['Interesting', 'Uninteresting'], :language => "ru"
+	  c.train_interesting "вот несколько хороших слов. Я надеюсь вам они понравились"
+	  c.train_uninteresting "вот несколько плохих слов. Я тебя ненавижу"
+	  assert_equal 'Uninteresting', c.classify("Я ненавижу плохие слова и тебя")
+  end
+  
+  def test_case_insensitive
+	  c = Classifier::Bayes.new :categories => [:good, :bad], :language => "ru"
+	  c.train_good "Хорошо"
+	  c.train_bad "Плохо"
+	  
+	  assert_equal c.classifications("ХОРОШО"), c.classifications("хорошо")
+	  assert_equal c.classifications("плОХО"), c.classifications("плохо")
   end
 end

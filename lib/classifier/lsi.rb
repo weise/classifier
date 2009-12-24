@@ -23,7 +23,7 @@ module Classifier
   # This class implements a Latent Semantic Indexer, which can search, classify and cluster
   # data based on underlying semantic relations. For more information on the algorithms used,
   # please consult Wikipedia[http://en.wikipedia.org/wiki/Latent_Semantic_Indexing].
-  class LSI
+  class LSI < Classifier::Base
     
     attr_reader :word_list
     attr_accessor :auto_rebuild
@@ -36,6 +36,7 @@ module Classifier
       @auto_rebuild = true unless options[:auto_rebuild] == false
       @word_list, @items = WordList.new, {}
       @version, @built_at_version = 0, -1
+      super
     end
     
     # Returns true if the index needs to be rebuilt.  The index needs
@@ -59,7 +60,7 @@ module Classifier
     #   lsi.add_item ar, *ar.categories { |x| ar.content }
     #
     def add_item( item, *categories, &block )
-      clean_word_hash = block ? block.call(item).clean_word_hash : item.to_s.clean_word_hash
+      clean_word_hash = block ? clean_word_hash(block.call(item)) : clean_word_hash(item.to_s)
       @items[item] = ContentNode.new(clean_word_hash, *categories)
       @version += 1
       build_index if @auto_rebuild
@@ -179,6 +180,7 @@ module Classifier
       content_node = node_for_content( doc, &block )
       result = 
         @items.keys.collect do |item|
+          next if @items[item].search_vector.blank? # not enough data
           if $GSL
              val = content_node.search_vector * @items[item].search_vector.col
           else
@@ -186,7 +188,7 @@ module Classifier
           end
           [item, val]
         end
-      result.sort_by { |x| x[1] }.reverse
+      result.compact.sort_by { |x| x[1] }.reverse
     end 
     
     # Similar to proximity_array_for_content, this function takes similar
@@ -200,6 +202,7 @@ module Classifier
       content_node = node_for_content( doc, &block )
       result = 
         @items.keys.collect do |item|
+          next if @items[item].search_norm.blank? # not enough data
           if $GSL
             val = content_node.search_norm * @items[item].search_norm.col
           else
@@ -207,7 +210,7 @@ module Classifier
           end
           [item, val]
         end
-      result.sort_by { |x| x[1] }.reverse
+      result.compact.sort_by { |x| x[1] }.reverse
     end 
     
     # This function allows for text-based search of your index. Unlike other functions
@@ -265,7 +268,23 @@ module Classifier
       ranking = votes.keys.sort_by { |x| votes[x] }
       return ranking[-1]
     end
-    
+
+    # Same as previous but returns all results, also more permissive in default cut-off
+    def classify_multiple( doc, cutoff=0.50, &block )
+      icutoff = (@items.size * cutoff).round
+      carry = proximity_array_for_content( doc, &block )
+      carry = carry[0..icutoff-1]
+      votes = {}
+      carry.each do |pair|
+        categories = @items[pair[0]].categories
+        categories.each do |category|
+          votes[category] ||= 0.0
+          votes[category] += pair[1]
+        end
+      end
+      votes.delete_if{|key, value| value<1 }.keys.sort_by { |x| -votes[x] }
+    end
+
     # Prototype, only works on indexed documents.
     # I have no clue if this is going to work, but in theory
     # it's supposed to.
@@ -287,14 +306,14 @@ module Classifier
         s[ord] = 0.0 if s[ord] < s_cutoff
       end
       # Reconstruct the term document matrix, only with reduced rank
-      u * Matrix.diag( s ) * v.trans
+      u * ($GSL ? GSL::Matrix : Matrix).diag( s ) * v.trans
     end
     
     def node_for_content(item, &block)    
       if @items[item]
         return @items[item]
       else
-        clean_word_hash = block ? block.call(item).clean_word_hash : item.to_s.clean_word_hash
+        clean_word_hash = block ? clean_word_hash(block.call(item)) : clean_word_hash(item.to_s)
 
         cn = ContentNode.new(clean_word_hash, &block) # make the node and extract the data
 
