@@ -1,5 +1,6 @@
 # coding:utf-8
 require File.dirname(__FILE__) + '/test_helper'
+
 class SkipWordsTest < Test::Unit::TestCase
   def test_en
     assert_equal 80, Classifier::SkipWords.for('en').size
