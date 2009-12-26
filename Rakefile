@@ -8,8 +8,8 @@ begin
     s.summary     = "A general classifier module to allow Bayesian and other types of classifications."
     s.description = "Bayesian classifier and others."
     s.homepage    = "http://github.com/luisparravicini/classifier"
-    s.author      = "Yury Korolev"
-    s.email       = "yury.korolev@gmail.com"
+    s.author      = "Luis Parravicini"
+    s.email       = "lparravi@gmail.com"
 
     s.add_dependency "activesupport", ">= 2.2.2"
     s.add_dependency "ruby-stemmer", ">= 0.5.1"
