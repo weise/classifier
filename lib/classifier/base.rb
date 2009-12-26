@@ -40,7 +40,7 @@ module Classifier
 
   	def word_hash_for_words(words)
   		d = Hash.new
-  		skip_words = StopWords.for(@options[:language])
+  		skip_words = StopWords.for(@options[:language], @options[:lang_dir])
   		words.each do |word|
   			word = word.mb_chars.downcase.to_s if word =~ /[\w]+/
   			key = stemmer.stem(word).intern
