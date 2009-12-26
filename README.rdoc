@@ -38,12 +38,13 @@ Using Madeleine, your application can persist the learned data over time.
 
 You can specify language and encoding for internal stemmer:
 
-	  b = Classifier::Bayes.new :categories => ['Interesting', 'Uninteresting'], :language => 'ro', :encoding => 'ISO_8859_2'
+	  b = Classifier::Bayes.new :categories => ['Interesting', 'Uninteresting'],
+      :language => 'ro', :encoding => 'ISO_8859_2'
 
 The default values are 'en' for language and 'UTF-8' for the encoding.
 
 Each language uses a word list to exclude certain words (stopwords). classifier comes with three included stopword lists, for English, Russian and Spanish.
-The English list is the list that comes with the original gem (don't know where it was taken from) and the Russian and Spanish are from the snowball api [http://snowball.tartarus.org/algorithms/].
+The English list is the list that comes with the original gem (don't know where it was taken from) and the Russian and Spanish are from the snowball[http://snowball.tartarus.org/algorithms/].
 
 === Bayesian Classification
 
@@ -80,7 +81,8 @@ theoretically simulates human learning.
 Please see the Classifier::LSI documentation for more information. It is possible to index, search and classify
 with more than just simple strings. 
 
-You can also specify language and encoding for internal stemmer
+The configuration for the stemmer is the same used for Bayes:
+
 	  lsi = Classifier::LSI.new :language => 'ro', :encoding => 'ISO_8859_2'
 
 
