@@ -1,12 +1,12 @@
 module Classifier
 
-  module SkipWords
+  module StopWords
 
     def self.for(language)
-      unless SKIP_WORDS.has_key?(language)
-        SKIP_WORDS[language] = load_stopwords(language) || []
+      unless STOP_WORDS.has_key?(language)
+        STOP_WORDS[language] = load_stopwords(language) || []
       end
-      SKIP_WORDS[language]
+      STOP_WORDS[language]
     end
 
     protected
@@ -25,6 +25,6 @@ module Classifier
         end
       end
         
-    SKIP_WORDS = {}
+    STOP_WORDS = {}
   end
 end
