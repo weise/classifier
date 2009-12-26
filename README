@@ -34,8 +34,16 @@ A Bayesian classifier by Lucas Carlson. Bayesian Classifiers are accurate, fast,
 
 Using Madeleine, your application can persist the learned data over time.
 
-You can also specify language and encoding for internal stemmer
+=== Stemmer configuration
+
+You can specify language and encoding for internal stemmer:
+
 	  b = Classifier::Bayes.new :categories => ['Interesting', 'Uninteresting'], :language => 'ro', :encoding => 'ISO_8859_2'
+
+The default values are 'en' for language and 'UTF-8' for the encoding.
+
+Each language uses a word list to exclude certain words (stopwords). classifier comes with three included stopword lists, for English, Russian and Spanish.
+The English list is the list that comes with the original gem (don't know where it was taken from) and the Russian and Spanish are from the snowball api [http://snowball.tartarus.org/algorithms/].
 
 === Bayesian Classification
 
