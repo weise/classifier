@@ -9,7 +9,7 @@ rb-gsl:: http://rb-gsl.rubyforge.org
 Notice that LSI will work without these libraries, but as soon as they are installed, Classifier will make use of them. No configuration changes are needed, we like to keep things ridiculously easy for you.
 
 == Changes in this branch
-I made this branch to fix a TypeError on untrain (classifier-1.3.1), then merge KirinDave branch[http://github.com/KirinDave/classifier/] to fix an incompatibility problem with ActiveSupport (with Array#sum), then francois[http://github.com/francois/classifier/] branch for jeweler and all the changes yuri[http://github.com/yury/classifier/] made on his branch (specially the use of ruby-stemmer, which I needed).
+I made this branch to fix a TypeError on untrain (classifier-1.3.1), then francois[http://github.com/francois/classifier/] branch for jeweler and all the changes yuri[http://github.com/yury/classifier/] made on his branch (specially the use of ruby-stemmer, and the incompatibility fix on Array#sum, which I needed).
 After that I added support for loading the stopwords of certain language from a file (before the list was embedded on the source code) and a stopword list for Spanish.
 This branch only works with Ruby 1.9
 

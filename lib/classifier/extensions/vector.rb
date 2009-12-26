@@ -6,15 +6,6 @@
 require 'matrix'
 require 'mathn'
 
-# Conflicts with ActiveSupport
-unless Array.new.respond_to?(:sum)
-  class Array
-    def sum
-      inject(0) { |sum,term| sum += term  }.to_f
-    end
-  end
-end
-
 class Vector
   def magnitude
     sumsqs = 0.0
