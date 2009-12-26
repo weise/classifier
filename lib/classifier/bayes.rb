@@ -131,6 +131,15 @@ class Bayes < Classifier::Base
 	end
 	
 	alias append_category add_category
+
+  def marshal_dump
+    [@categories, @total_words, @options ]
+  end
+
+  def marshal_load(data)
+    @categories, @total_words, @options = data
+  end
+
 end
 
 end

@@ -295,6 +295,17 @@ module Classifier
       return top_n.collect { |x| @word_list.word_for_index(arr.index(x))}
     end
 
+    def marshal_dump
+      [ @auto_rebuild, @word_list, @items, @version, @built_at_version,
+        @options,
+      ]
+    end
+
+    def marshal_load(data)
+      @auto_rebuild, @word_list, @items, @version, @built_at_version,
+        @options = data
+    end
+
     private
     def build_reduced_matrix( matrix, cutoff=0.75 )
       # TODO: Check that M>=N on these dimensions! Transpose helps assure this
