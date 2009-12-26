@@ -24,7 +24,6 @@
 # Copyright:: Copyright (c) 2005 Lucas Carlson
 # License::   LGPL
 
-require 'rubygems'
 require 'activesupport'
 require 'lingua/stemmer'
 require 'classifier/base'
