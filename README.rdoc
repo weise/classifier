@@ -44,7 +44,7 @@ You can specify language and encoding for internal stemmer:
 The default values are 'en' for language and 'UTF-8' for the encoding.
 
 Each language uses a word list to exclude certain words (stopwords). classifier comes with three included stopword lists, for English, Russian and Spanish.
-The English list is the list that comes with the original gem (don't know where it was taken from) and the Russian and Spanish are from snowball[http://snowball.tartarus.org/algorithms/].
+The English list is the one that comes with the original gem (don't know where it was taken from) and the Russian and Spanish are from snowball[http://snowball.tartarus.org/algorithms/].
 
 You can override the default stopword list, or add lists for new languages sending a value for :lang_dir when initializing Bayes:
 
