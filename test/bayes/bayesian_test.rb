@@ -1,5 +1,4 @@
 # coding:utf-8
-$KCODE = 'utf8'
 
 require File.dirname(__FILE__) + '/../test_helper'
 class BayesianTest < Test::Unit::TestCase
