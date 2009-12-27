@@ -1,6 +1,7 @@
 # coding:utf-8
 
 require File.dirname(__FILE__) + '/../test_helper'
+
 class BayesianTest < Test::Unit::TestCase
 	def setup
 		@classifier = Classifier::Bayes.new :categories => ['Interesting', 'Uninteresting']
@@ -57,11 +58,11 @@ class BayesianTest < Test::Unit::TestCase
 
   def test_serialize
     txt = "this can be serialized"
-    b = Classifier::Bayes.new(:categories => ['Interesting', 'Uninteresting'])
-    b.train_interesting(txt)
-    b.train_uninteresting("really uninteresting")
+    @classifier.train_interesting(txt)
+    @classifier.train_uninteresting("really uninteresting")
 
-    b2 = Marshal::load(Marshal::dump(b))
-    assert_equal b.classify(txt), b2.classify(txt)
+    b2 = Marshal::load(Marshal::dump(@classifier))
+    assert_equal @classifier.classify(txt), b2.classify(txt)
   end
+
 end
