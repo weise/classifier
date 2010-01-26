@@ -55,6 +55,19 @@ This directory is used when loading the list from disk and takes precedence over
 
 The stopwords file can have comments (indicated with '#'), blank lines are ignored and the encoding must be utf-8.
 
+=== A warning about classifier serialization
+If you serialize a classifier and then deserialize it in another process, you need to be careful that the stemmer is reinitialized
+the next time you want to use it. Here is an example using ActiveRecord:
+
+    class User < ActiveRecord::Base
+      serialize :classifier, Classifier::Bayes
+      before_save :remove_stemmer
+
+      def remove_stemmer
+        self.classifier.remove_stemmer
+      end
+    end
+
 === Bayesian Classification
 
 * http://www.process.com/precisemail/bayesian_filtering.htm
