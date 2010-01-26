@@ -31,6 +31,15 @@ module Classifier
   	def clean_word_hash str
   		word_hash_for_words str.gsub(/[^\w\s]/,"").split
   	end
+
+    # When a Classifier instance is serialized, it is saved with an instance
+    # of Lingua::Stemmer that may not be initialized when deserialized later,
+    # raising a "RuntimeError: Stemmer is not initialized".
+    #
+    # You can run remove_stemmer to force a new Stemmer to be initialized.
+    def remove_stemmer
+      @stemmer = nil
+    end
   	
   	private 
   	

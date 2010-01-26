@@ -24,7 +24,7 @@
 # Copyright:: Copyright (c) 2005 Lucas Carlson
 # License::   LGPL
 
-require 'activesupport'
+require 'active_support'
 require 'lingua/stemmer'
 require 'classifier/base'
 require 'classifier/bayes'
