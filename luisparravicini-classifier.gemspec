@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Luis Parravicini"]
-  s.date = %q{2010-01-26}
+  s.date = %q{2010-01-29}
   s.description = %q{Bayesian classifier and others.}
   s.email = %q{lparravi@gmail.com}
   s.extra_rdoc_files = [
@@ -37,6 +37,7 @@ Gem::Specification.new do |s|
      "lib/classifier/stopwords/ru",
      "lib/init.rb",
      "luisparravicini-classifier.gemspec",
+     "pkg/luisparravicini-classifier-1.4.0.gem",
      "tasks/test.rake",
      "test/base_test.rb",
      "test/bayes/bayesian_test.rb",
@@ -50,9 +51,9 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{A general classifier module to allow Bayesian and other types of classifications.}
   s.test_files = [
-    "test/lsi/lsi_test.rb",
-     "test/base_test.rb",
+    "test/base_test.rb",
      "test/bayes/bayesian_test.rb",
+     "test/lsi/lsi_test.rb",
      "test/stopwords_test.rb",
      "test/test_helper.rb"
   ]
