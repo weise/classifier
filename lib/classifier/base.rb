@@ -10,7 +10,7 @@ module Classifier
     end
   
     def prepare_category_name val
-      val.to_s.gsub("_"," ").capitalize.intern 
+      val.to_s.gsub("_"," ").capitalize
     end
     
     # Removes common punctuation symbols, returning a new string. 
@@ -22,7 +22,7 @@ module Classifier
     end
     
     # Return a Hash of strings => ints. Each word in the string is stemmed,
-    # interned, and indexes to its frequency in the document.  
+    # and indexes to its frequency in the document.  
   	def word_hash str
   		word_hash_for_words(str.gsub(/[^\w\s]/,"").split + str.gsub(/[\w]/," ").split)
   	end
@@ -50,9 +50,11 @@ module Classifier
   	def word_hash_for_words(words)
   		d = Hash.new
   		skip_words = StopWords.for(@options[:language], @options[:lang_dir])
+      encoding_name = @options[:encoding].gsub(/_/, '-')
   		words.each do |word|
   			word = word.mb_chars.downcase.to_s if word =~ /[\w]+/
-  			key = stemmer.stem(word).intern
+  			key = stemmer.stem(word)
+        key.force_encoding(encoding_name)
   			if word =~ /[^\w]/ || ! skip_words.include?(word) && word.length > 2
   				d[key] ||= 0
   				d[key] += 1

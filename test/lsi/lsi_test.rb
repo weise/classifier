@@ -157,7 +157,7 @@ class LSITest < Test::Unit::TestCase
 	  lsi.add_item @str4, "Cat"
 	  lsi.add_item @str5, "Bird"
 	
-	  assert_equal [:dog, :text, :deal], lsi.highest_ranked_stems(@str1)
+	  assert_equal ['dog', 'text', 'deal'], lsi.highest_ranked_stems(@str1)
 	end
 	
 	def test_summary
