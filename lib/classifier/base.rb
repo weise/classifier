@@ -1,4 +1,3 @@
-
 module Classifier
   class Base
     
@@ -54,7 +53,7 @@ module Classifier
   		words.each do |word|
   			word = word.mb_chars.downcase.to_s if word =~ /[\w]+/
   			key = stemmer.stem(word)
-        key.force_encoding(encoding_name)
+  			key.force_encoding(encoding_name) if defined?(Encoding) && key && key.respond_to?(:force_encoding)
   			if word =~ /[^\w]/ || ! skip_words.include?(word) && word.length > 2
   				d[key] ||= 0
   				d[key] += 1
