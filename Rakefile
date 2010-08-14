@@ -4,10 +4,10 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
-    s.name        = "luisparravicini-classifier"
+    s.name        = "logankoester-classifier"
     s.summary     = "A general classifier module to allow Bayesian and other types of classifications."
     s.description = "Bayesian classifier and others."
-    s.homepage    = "http://github.com/luisparravicini/classifier"
+    s.homepage    = "http://github.com/logankoester/classifier"
     s.author      = "Luis Parravicini"
     s.email       = "lparravi@gmail.com"
 
