@@ -14,7 +14,7 @@ class LSITest < Test::Unit::TestCase
 	end
 	
 	def test_basic_indexing
-	 lsi = Classifier::LSI.new
+	 lsi = ClassifierBudgeteer::LSI.new
 	  [@str1, @str2, @str3, @str4, @str5].each { |x| lsi << x }
 	  assert ! lsi.needs_rebuild?
 	  
@@ -24,7 +24,7 @@ class LSITest < Test::Unit::TestCase
 	end
 
 	def test_not_auto_rebuild
-	 lsi = Classifier::LSI.new :auto_rebuild => false
+	 lsi = ClassifierBudgeteer::LSI.new :auto_rebuild => false
 	 lsi.add_item @str1, "Dog"
 	 lsi.add_item @str2, "Dog"
 	 assert lsi.needs_rebuild?
@@ -33,7 +33,7 @@ class LSITest < Test::Unit::TestCase
 	end
 
 	def test_basic_categorizing_with_too_small_dataset
-	  lsi = Classifier::LSI.new
+	  lsi = ClassifierBudgeteer::LSI.new
 	  lsi.add_item @str2, "Dog"
 	  
 	  assert_equal nil, lsi.classify( @str1 )
@@ -41,7 +41,7 @@ class LSITest < Test::Unit::TestCase
 	end
 
 	def test_basic_categorizing
-	  lsi = Classifier::LSI.new
+	  lsi = ClassifierBudgeteer::LSI.new
 	  lsi.add_item @str2, "Dog"
 	  lsi.add_item @str3, "Cat"
 	  lsi.add_item @str4, "Cat"
@@ -56,7 +56,7 @@ class LSITest < Test::Unit::TestCase
 	end
 
   def test_multiple_categorizing
-    lsi = Classifier::LSI.new
+    lsi = ClassifierBudgeteer::LSI.new
     lsi.add_item @str1, "Dog"
     lsi.add_item @str2, "Dog"
     lsi.add_item @str3, "Cat"
@@ -69,7 +69,7 @@ class LSITest < Test::Unit::TestCase
   end
   
   def test_multiple_categorizing_reverse
-    lsi = Classifier::LSI.new
+    lsi = ClassifierBudgeteer::LSI.new
     lsi.add_item @str1, "Dog"
     lsi.add_item @str3, "Cat"
     lsi.add_item @str4, "Cat"
@@ -86,8 +86,8 @@ class LSITest < Test::Unit::TestCase
   end
   
 	def test_external_classifying
-	  lsi = Classifier::LSI.new
-	  bayes = Classifier::Bayes.new :categories => ['Dog', 'Cat', 'Bird']
+	  lsi = ClassifierBudgeteer::LSI.new
+	  bayes = ClassifierBudgeteer::Bayes.new :categories => ['Dog', 'Cat', 'Bird']
 	  lsi.add_item @str1, "Dog" ; bayes.train_dog @str1
 	  lsi.add_item @str2, "Dog" ; bayes.train_dog @str2
 	  lsi.add_item @str3, "Cat" ; bayes.train_cat @str3
@@ -103,7 +103,7 @@ class LSITest < Test::Unit::TestCase
 	end 
 	
 	def test_recategorize_interface
-	  lsi = Classifier::LSI.new
+	  lsi = ClassifierBudgeteer::LSI.new
 	  lsi.add_item @str1, "Dog"
 	  lsi.add_item @str2, "Dog"
 	  lsi.add_item @str3, "Cat"
@@ -122,7 +122,7 @@ class LSITest < Test::Unit::TestCase
 	end
 	
 	def test_search
-	  lsi = Classifier::LSI.new
+	  lsi = ClassifierBudgeteer::LSI.new
 	  [@str1, @str2, @str3, @str4, @str5].each { |x| lsi << x }
 	  
 	  # Searching by content and text, note that @str2 comes up first, because
@@ -139,7 +139,7 @@ class LSITest < Test::Unit::TestCase
 	end
 	
 	def test_serialize_safe
-    lsi = Classifier::LSI.new
+    lsi = ClassifierBudgeteer::LSI.new
 	  [@str1, @str2, @str3, @str4, @str5].each { |x| lsi << x }
 	  
 	  lsi_md = Marshal.dump lsi
@@ -150,7 +150,7 @@ class LSITest < Test::Unit::TestCase
 	end
 	
 	def test_keyword_search
-	  lsi = Classifier::LSI.new
+	  lsi = ClassifierBudgeteer::LSI.new
 	  lsi.add_item @str1, "Dog"
 	  lsi.add_item @str2, "Dog"
 	  lsi.add_item @str3, "Cat"

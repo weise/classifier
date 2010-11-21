@@ -18,12 +18,12 @@ require 'classifier/lsi/word_list'
 require 'classifier/lsi/content_node'
 require 'classifier/lsi/summary'
 
-module Classifier
+module ClassifierBudgeteer
   
   # This class implements a Latent Semantic Indexer, which can search, classify and cluster
   # data based on underlying semantic relations. For more information on the algorithms used,
   # please consult Wikipedia[http://en.wikipedia.org/wiki/Latent_Semantic_Indexing].
-  class LSI < Classifier::Base
+  class LSI < ClassifierBudgeteer::Base
     
     attr_reader :word_list
     attr_accessor :auto_rebuild

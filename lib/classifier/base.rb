@@ -1,4 +1,4 @@
-module Classifier
+module ClassifierBudgeteer
   class Base
     
     def initialize(options = {})

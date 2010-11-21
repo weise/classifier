@@ -4,9 +4,9 @@
 
 require 'classifier/stopwords'
 
-module Classifier
+module ClassifierBudgeteer
 
-class Bayes < Classifier::Base
+class Bayes < ClassifierBudgeteer::Base
   
   # The class can be created with one or more categories, each of which will be
   # initialized and given a training method. E.g., 

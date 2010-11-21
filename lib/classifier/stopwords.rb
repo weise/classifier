@@ -1,4 +1,4 @@
-module Classifier
+module ClassifierBudgeteer
 
   module StopWords
 
